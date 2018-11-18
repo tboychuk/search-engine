@@ -1,4 +1,4 @@
-## Search Engine - Java Engineer Test Task
+## Search Engine
 
 ### How to run the application:
 * clone the repository
