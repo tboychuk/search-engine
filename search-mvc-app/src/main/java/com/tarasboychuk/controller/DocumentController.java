@@ -1,6 +1,7 @@
 package com.tarasboychuk.controller;
 
 import com.tarasboychuk.exception.EmptyDocumentException;
+import com.tarasboychuk.exception.EmptyKeyException;
 import com.tarasboychuk.service.DocumentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,14 +28,17 @@ public class DocumentController {
 
     @PostMapping
     public String saveDocument(@RequestParam String key, @RequestParam String document, Model model) {
-        validate(document);
+        validate(key, document);
         documentService.putDocument(key, document);
         model.addAttribute("success", true);
         return "form";
     }
 
-    private void validate(String document) {
-        if (document == null || document.trim().isEmpty()) {
+    private void validate(String key, String document) {
+        if (key.trim().isEmpty()) {
+            throw new EmptyKeyException("Key cannot be empty.");
+        }
+        if (document.trim().isEmpty()) {
             throw new EmptyDocumentException("Document cannot be empty.");
         }
     }

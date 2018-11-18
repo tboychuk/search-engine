@@ -3,6 +3,7 @@ package com.tarasboychuk.controller;
 import com.tarasboychuk.exception.DocumentKeyAlreadyExistsException;
 import com.tarasboychuk.exception.DocumentNotFoundException;
 import com.tarasboychuk.exception.EmptyDocumentException;
+import com.tarasboychuk.exception.EmptyKeyException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +25,12 @@ public class ErrorResponseHandler {
 
     @ExceptionHandler(EmptyDocumentException.class)
     public String emptyDocument(EmptyDocumentException e, Model model) {
+        model.addAttribute("error", e.getMessage());
+        return "form";
+    }
+
+    @ExceptionHandler(EmptyKeyException.class)
+    public String emptyKey(EmptyKeyException e, Model model) {
         model.addAttribute("error", e.getMessage());
         return "form";
     }

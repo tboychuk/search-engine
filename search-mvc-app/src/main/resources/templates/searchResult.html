@@ -29,7 +29,7 @@
     <div class="col-md-6 mx-auto">
         <h2>Search result(keys)</h2>
         <ul class="list-group" th:each="key: ${foundKeys}">
-            <li class="list-group-item" th:text="${key}" />
+            <li class="list-group-item"><a th:text="${key}" th:href="@{'/docs?key='+${key}}"></a></li>
         </ul>
         <div th:if="${(foundKeys == null || foundKeys.isEmpty()) && error == null}" class="alert alert-warning" role="alert">
             <div>No documents found</div>
